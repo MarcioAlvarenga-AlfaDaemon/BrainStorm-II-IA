@@ -1,68 +1,194 @@
-@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
 
 :root {
     --cor-fundo: #01080E;
-    --cor-principal: #0B0D20;
-    --cor-secundaria: #212333;
+    --cor-principal: rgba(11, 13, 32, 0.85);
+    --cor-secundaria: #171A2E;
     --cor-destaque: #2BDEFD;
-    --cor-texto: #D7F9FF;
+    --cor-destaque-hover: #00B4D8;
+    --cor-texto: #E0F7FA;
+    --cor-borda: rgba(43, 222, 253, 0.25);
+    --sombra-neon: 0 0 20px rgba(43, 222, 253, 0.15);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
     background-color: var(--cor-fundo);
+    /* Grade tecnológica sutil + brilho radial no fundo */
+    background-image: 
+        radial-gradient(circle at 50% 0%, rgba(43, 222, 253, 0.15) 0%, transparent 60%),
+        linear-gradient(rgba(43, 222, 253, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(43, 222, 253, 0.03) 1px, transparent 1px);
+    background-size: 100% 100%, 30px 30px, 30px 30px;
     color: var(--cor-texto);
     font-family: 'Inter', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    margin: 0;
+    padding: 20px;
 }
 
 .caixa-principal {
-    background-color: var(--cor-principal);
-    width: 90%;
-    max-width: 600px;
+    background: var(--cor-principal);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--cor-borda);
+    box-shadow: var(--sombra-neon), 0 20px 50px rgba(0, 0, 0, 0.7);
+    width: 100%;
+    max-width: 680px;
+    padding: 40px 35px;
+    border-radius: 20px;
     text-align: center;
-    padding: 20px;
-    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    animation: surgir 0.6s ease-out;
 }
 
-h1, .caixa-perguntas, .caixa-resultado {
-    font-family: 'Chakra Petch', sans-serif;
+/* Barra luminosa no topo do card */
+.caixa-principal::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--cor-destaque), transparent);
 }
 
 h1 {
+    font-family: 'Chakra Petch', sans-serif;
     color: var(--cor-destaque);
+    font-size: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 25px;
+    text-shadow: 0 0 15px rgba(43, 222, 253, 0.4);
+}
+
+.caixa-perguntas {
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: #FFFFFF;
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+
+.caixa-alternativas {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
 }
 
 button {
     background-color: var(--cor-secundaria);
     color: var(--cor-texto);
-    border: none;
-    border-radius: 15px;
-    padding: 15px;
+    border: 1px solid rgba(43, 222, 253, 0.15);
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+    text-align: left;
+    position: relative;
 }
 
 button:hover {
-    background-color: var(--cor-destaque);
-    color: var(--cor-principal);
+    background-color: rgba(43, 222, 253, 0.12);
+    border-color: var(--cor-destaque);
+    color: #FFFFFF;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(43, 222, 253, 0.2);
 }
 
+button:active {
+    transform: translateY(0);
+}
+
+/* Área do Resultado */
 .caixa-resultado {
     display: none;
-    margin-top: 15px;
+    margin-top: 10px;
+    animation: surgir 0.5s ease-out;
 }
 
 .caixa-resultado.mostrar {
     display: block;
 }
 
-.caixa-alternativas {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 15px;
+.texto-resultado {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.75;
+    background: rgba(1, 8, 14, 0.6);
+    border-left: 3px solid var(--cor-destaque);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: justify;
+    margin-bottom: 25px;
+    color: var(--cor-texto);
+}
+
+/* Botão de Jogar Novamente em destaque */
+.novamente-btn {
+    background: var(--cor-destaque);
+    color: var(--cor-fundo);
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    padding: 14px 32px;
+    border: none;
+    display: inline-block;
+    box-shadow: 0 0 15px rgba(43, 222, 253, 0.4);
+}
+
+.novamente-btn:hover {
+    background: #FFFFFF;
+    color: var(--cor-fundo);
+    box-shadow: 0 0 25px rgba(43, 222, 253, 0.8);
+    transform: scale(1.03);
+}
+
+/* Animação de entrada */
+@keyframes surgir {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsividade para celulares */
+@media (max-width: 600px) {
+    .caixa-principal {
+        padding: 25px 20px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .caixa-perguntas {
+        font-size: 1.1rem;
+    }
+
+    button {
+        font-size: 0.95rem;
+        padding: 14px;
+    }
 }
