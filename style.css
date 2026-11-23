@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
 
 :root {
-    --cor-fundo: #01080E;
-    --cor-principal: rgba(11, 13, 32, 0.85);
-    --cor-secundaria: #171A2E;
-    --cor-destaque: #2BDEFD;
-    --cor-destaque-hover: #00B4D8;
-    --cor-texto: #E0F7FA;
-    --cor-borda: rgba(43, 222, 253, 0.25);
-    --sombra-neon: 0 0 20px rgba(43, 222, 253, 0.15);
+    --cor-fundo: #070514;
+    --cor-principal: rgba(18, 14, 42, 0.85);
+    --cor-secundaria: rgba(35, 28, 75, 0.9);
+    --cor-ciano: #00F5D4;
+    --cor-roxo: #9B5DE5;
+    --cor-rosa: #F15BB5;
+    --cor-amarelo: #FEE440;
+    --cor-texto: #F8F9FA;
 }
 
 * {
@@ -19,12 +19,14 @@
 
 body {
     background-color: var(--cor-fundo);
-    /* Grade tecnológica sutil + brilho radial no fundo */
+    /* Manchas de luz coloridas no fundo + grade sutil */
     background-image: 
-        radial-gradient(circle at 50% 0%, rgba(43, 222, 253, 0.15) 0%, transparent 60%),
-        linear-gradient(rgba(43, 222, 253, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(43, 222, 253, 0.03) 1px, transparent 1px);
-    background-size: 100% 100%, 30px 30px, 30px 30px;
+        radial-gradient(circle at 15% 20%, rgba(241, 91, 181, 0.25) 0%, transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(0, 245, 212, 0.25) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(155, 93, 229, 0.2) 0%, transparent 60%),
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 100% 100%, 35px 35px, 35px 35px;
     color: var(--cor-texto);
     font-family: 'Inter', sans-serif;
     display: flex;
@@ -36,40 +38,48 @@ body {
 
 .caixa-principal {
     background: var(--cor-principal);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--cor-borda);
-    box-shadow: var(--sombra-neon), 0 20px 50px rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     width: 100%;
     max-width: 680px;
     padding: 40px 35px;
-    border-radius: 20px;
+    border-radius: 24px;
     text-align: center;
     position: relative;
-    overflow: hidden;
+    /* Sombra colorida dupla (rosa de um lado, ciano do outro) */
+    box-shadow: 
+        -10px -10px 30px rgba(241, 91, 181, 0.2),
+        10px 10px 30px rgba(0, 245, 212, 0.2),
+        0 20px 50px rgba(0, 0, 0, 0.8);
     animation: surgir 0.6s ease-out;
 }
 
-/* Barra luminosa no topo do card */
+/* Borda degradê arco-íris neon ao redor da caixa */
 .caixa-principal::before {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, var(--cor-destaque), transparent);
+    inset: 0;
+    border-radius: 24px;
+    padding: 2px;
+    background: linear-gradient(135deg, var(--cor-rosa), var(--cor-roxo), var(--cor-ciano), var(--cor-amarelo));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
 }
 
 h1 {
     font-family: 'Chakra Petch', sans-serif;
-    color: var(--cor-destaque);
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1.5px;
     margin-bottom: 25px;
-    text-shadow: 0 0 15px rgba(43, 222, 253, 0.4);
+    /* Texto com degradê colorido */
+    background: linear-gradient(90deg, var(--cor-ciano), var(--cor-rosa), var(--cor-amarelo));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 10px rgba(241, 91, 181, 0.3));
 }
 
 .caixa-perguntas {
@@ -78,36 +88,45 @@ h1 {
     line-height: 1.6;
     color: #FFFFFF;
     margin-bottom: 25px;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .caixa-alternativas {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 15px;
 }
 
 button {
-    background-color: var(--cor-secundaria);
+    background: var(--cor-secundaria);
     color: var(--cor-texto);
-    border: 1px solid rgba(43, 222, 253, 0.15);
-    border-radius: 12px;
+    border: 2px solid rgba(155, 93, 229, 0.4);
+    border-radius: 14px;
     padding: 16px 20px;
     font-family: 'Inter', sans-serif;
     font-size: 1rem;
     line-height: 1.5;
     cursor: pointer;
-    transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: all 0.25s ease;
     text-align: left;
     position: relative;
 }
 
+/* Alterna a cor da borda entre os botões para ficar mais colorido */
+button:nth-child(odd) {
+    border-left: 5px solid var(--cor-ciano);
+}
+
+button:nth-child(even) {
+    border-left: 5px solid var(--cor-rosa);
+}
+
 button:hover {
-    background-color: rgba(43, 222, 253, 0.12);
-    border-color: var(--cor-destaque);
+    background: linear-gradient(90deg, rgba(155, 93, 229, 0.35), rgba(241, 91, 181, 0.35));
+    border-color: var(--cor-ciano);
     color: #FFFFFF;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(43, 222, 253, 0.2);
+    transform: translateY(-3px) scale(1.01);
+    box-shadow: 0 8px 20px rgba(155, 93, 229, 0.4);
 }
 
 button:active {
@@ -129,66 +148,29 @@ button:active {
     font-family: 'Inter', sans-serif;
     font-size: 1.05rem;
     line-height: 1.75;
-    background: rgba(1, 8, 14, 0.6);
-    border-left: 3px solid var(--cor-destaque);
+    background: linear-gradient(135deg, rgba(155, 93, 229, 0.15), rgba(0, 245, 212, 0.1));
+    border: 1px solid rgba(241, 91, 181, 0.3);
+    border-left: 4px solid var(--cor-amarelo);
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 12px;
     text-align: justify;
     margin-bottom: 25px;
     color: var(--cor-texto);
 }
 
-/* Botão de Jogar Novamente em destaque */
+/* Botão de Jogar Novamente super colorido */
 .novamente-btn {
-    background: var(--cor-destaque);
-    color: var(--cor-fundo);
+    background: linear-gradient(90deg, var(--cor-rosa), var(--cor-roxo), var(--cor-ciano));
+    background-size: 200% auto;
+    color: #FFFFFF;
     font-family: 'Chakra Petch', sans-serif;
     font-weight: 700;
     font-size: 1.1rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
     text-align: center;
-    padding: 14px 32px;
-    border: none;
+    padding: 15px 35px;
+    border: none !important;
+    border-radius: 50px;
     display: inline-block;
-    box-shadow: 0 0 15px rgba(43, 222, 253, 0.4);
-}
-
-.novamente-btn:hover {
-    background: #FFFFFF;
-    color: var(--cor-fundo);
-    box-shadow: 0 0 25px rgba(43, 222, 253, 0.8);
-    transform: scale(1.03);
-}
-
-/* Animação de entrada */
-@keyframes surgir {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Responsividade para celulares */
-@media (max-width: 600px) {
-    .caixa-principal {
-        padding: 25px 20px;
-    }
-
-    h1 {
-        font-size: 1.5rem;
-    }
-
-    .caixa-perguntas {
-        font-size: 1.1rem;
-    }
-
-    button {
-        font-size: 0.95rem;
-        padding: 14px;
-    }
-}
+    box-shadow: 0 5px 20px rgba(2
