@@ -1,14 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-    --cor-fundo: #070514;
-    --cor-principal: rgba(18, 14, 42, 0.85);
-    --cor-secundaria: rgba(35, 28, 75, 0.9);
-    --cor-ciano: #00F5D4;
-    --cor-roxo: #9B5DE5;
-    --cor-rosa: #F15BB5;
-    --cor-amarelo: #FEE440;
-    --cor-texto: #F8F9FA;
+    --cor-fundo: #0F172A;
+    --cor-superficie: #1E293B;
+    --cor-superficie-hover: #283548;
+    --cor-destaque: #38BDF8;
+    --cor-destaque-hover: #0284C7;
+    --cor-texto-principal: #F8FAFC;
+    --cor-texto-secundario: #CBD5E1;
+    --cor-borda: rgba(255, 255, 255, 0.08);
+    --cor-borda-topo: rgba(255, 255, 255, 0.16);
 }
 
 * {
@@ -19,125 +20,105 @@
 
 body {
     background-color: var(--cor-fundo);
-    /* Manchas de luz coloridas no fundo + grade sutil */
-    background-image: 
-        radial-gradient(circle at 15% 20%, rgba(241, 91, 181, 0.25) 0%, transparent 45%),
-        radial-gradient(circle at 85% 80%, rgba(0, 245, 212, 0.25) 0%, transparent 45%),
-        radial-gradient(circle at 50% 50%, rgba(155, 93, 229, 0.2) 0%, transparent 60%),
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 100% 100%, 100% 100%, 100% 100%, 35px 35px, 35px 35px;
-    color: var(--cor-texto);
-    font-family: 'Inter', sans-serif;
+    /* Iluminação ambiente suave vindo de cima, simulando luz real */
+    background-image: radial-gradient(ellipse at 50% 0%, #1E293B 0%, #0F172A 75%);
+    color: var(--cor-texto-principal);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: 20px;
+    padding: 24px;
+    -webkit-font-smoothing: antialiased;
 }
 
 .caixa-principal {
-    background: var(--cor-principal);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    width: 100%;
-    max-width: 680px;
-    padding: 40px 35px;
-    border-radius: 24px;
-    text-align: center;
-    position: relative;
-    /* Sombra colorida dupla (rosa de um lado, ciano do outro) */
+    background-color: var(--cor-superficie);
+    /* Borda superior levemente mais clara para simular reflexo de luz */
+    border: 1px solid var(--cor-borda);
+    border-top: 1px solid var(--cor-borda-topo);
+    /* Sombras em camadas para profundidade realista */
     box-shadow: 
-        -10px -10px 30px rgba(241, 91, 181, 0.2),
-        10px 10px 30px rgba(0, 245, 212, 0.2),
-        0 20px 50px rgba(0, 0, 0, 0.8);
-    animation: surgir 0.6s ease-out;
-}
-
-/* Borda degradê arco-íris neon ao redor da caixa */
-.caixa-principal::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 24px;
-    padding: 2px;
-    background: linear-gradient(135deg, var(--cor-rosa), var(--cor-roxo), var(--cor-ciano), var(--cor-amarelo));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
+        0 4px 6px -1px rgba(0, 0, 0, 0.3),
+        0 20px 40px -10px rgba(0, 0, 0, 0.6);
+    width: 100%;
+    max-width: 660px;
+    padding: 44px 40px;
+    border-radius: 16px;
+    text-align: left;
+    animation: surgir 0.4s ease-out;
 }
 
 h1 {
-    font-family: 'Chakra Petch', sans-serif;
-    font-size: 2.2rem;
+    font-size: 1.5rem;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 25px;
-    /* Texto com degradê colorido */
-    background: linear-gradient(90deg, var(--cor-ciano), var(--cor-rosa), var(--cor-amarelo));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 2px 10px rgba(241, 91, 181, 0.3));
+    color: var(--cor-texto-principal);
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--cor-borda);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Pequeno indicador visual sutil antes do título */
+h1::before {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--cor-destaque);
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
 }
 
 .caixa-perguntas {
-    font-family: 'Chakra Petch', sans-serif;
-    font-size: 1.25rem;
-    line-height: 1.6;
-    color: #FFFFFF;
-    margin-bottom: 25px;
-    font-weight: 600;
+    font-size: 1.125rem;
+    line-height: 1.65;
+    color: var(--cor-texto-principal);
+    font-weight: 500;
+    margin-bottom: 28px;
 }
 
 .caixa-alternativas {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
 }
 
 button {
-    background: var(--cor-secundaria);
-    color: var(--cor-texto);
-    border: 2px solid rgba(155, 93, 229, 0.4);
-    border-radius: 14px;
+    background-color: rgba(15, 23, 42, 0.5);
+    color: var(--cor-texto-secundario);
+    border: 1px solid var(--cor-borda);
+    border-radius: 12px;
     padding: 16px 20px;
     font-family: 'Inter', sans-serif;
-    font-size: 1rem;
-    line-height: 1.5;
+    font-size: 0.98rem;
+    line-height: 1.55;
     cursor: pointer;
-    transition: all 0.25s ease;
     text-align: left;
-    position: relative;
-}
-
-/* Alterna a cor da borda entre os botões para ficar mais colorido */
-button:nth-child(odd) {
-    border-left: 5px solid var(--cor-ciano);
-}
-
-button:nth-child(even) {
-    border-left: 5px solid var(--cor-rosa);
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 button:hover {
-    background: linear-gradient(90deg, rgba(155, 93, 229, 0.35), rgba(241, 91, 181, 0.35));
-    border-color: var(--cor-ciano);
-    color: #FFFFFF;
-    transform: translateY(-3px) scale(1.01);
-    box-shadow: 0 8px 20px rgba(155, 93, 229, 0.4);
+    background-color: var(--cor-superficie-hover);
+    border-color: rgba(56, 189, 248, 0.5);
+    color: var(--cor-texto-principal);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 button:active {
-    transform: translateY(0);
+    transform: translateY(1px);
+    box-shadow: none;
 }
 
 /* Área do Resultado */
 .caixa-resultado {
     display: none;
-    margin-top: 10px;
-    animation: surgir 0.5s ease-out;
+    animation: surgir 0.4s ease-out;
 }
 
 .caixa-resultado.mostrar {
@@ -145,32 +126,24 @@ button:active {
 }
 
 .texto-resultado {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.05rem;
+    font-size: 1.02rem;
     line-height: 1.75;
-    background: linear-gradient(135deg, rgba(155, 93, 229, 0.15), rgba(0, 245, 212, 0.1));
-    border: 1px solid rgba(241, 91, 181, 0.3);
-    border-left: 4px solid var(--cor-amarelo);
-    padding: 20px;
+    color: var(--cor-texto-secundario);
+    background-color: rgba(15, 23, 42, 0.6);
+    border: 1px solid var(--cor-borda);
+    padding: 24px;
     border-radius: 12px;
-    text-align: justify;
-    margin-bottom: 25px;
-    color: var(--cor-texto);
+    margin-bottom: 24px;
 }
 
-/* Botão de Jogar Novamente super colorido */
 .novamente-btn {
-    background: linear-gradient(90deg, var(--cor-rosa), var(--cor-roxo), var(--cor-ciano));
-    background-size: 200% auto;
-    color: #FFFFFF;
-    font-family: 'Chakra Petch', sans-serif;
-    font-weight: 700;
-    font-size: 1.1rem;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
+    background-color: var(--cor-destaque);
+    color: #0F172A;
+    font-weight: 600;
+    font-size: 0.95rem;
     text-align: center;
-    padding: 15px 35px;
-    border: none !important;
-    border-radius: 50px;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 10px;
     display: inline-block;
-    box-shadow: 0 5px 20px rgba(2
+    box-shadow: 0 2
